@@ -3,13 +3,21 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Lex Intelligentia - Legal AI Operating System API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: cases
+    description: Legal case management
+  - name: analysis
+    description: AI legal analysis
+  - name: workflows
+    description: Predefined legal workflows
+  - name: results
+    description: Analysis results management
 paths:
   /healthz:
     get:
@@ -24,6 +32,251 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /cases:
+    get:
+      operationId: listCases
+      tags: [cases]
+      summary: List all cases
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          required: false
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          required: false
+      responses:
+        "200":
+          description: List of legal cases
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LegalCase"
+    post:
+      operationId: createCase
+      tags: [cases]
+      summary: Create a new legal case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLegalCaseBody"
+      responses:
+        "201":
+          description: Created case
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LegalCase"
+
+  /cases/{id}:
+    get:
+      operationId: getCase
+      tags: [cases]
+      summary: Get a legal case by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Legal case
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LegalCase"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateCase
+      tags: [cases]
+      summary: Update a legal case
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLegalCaseBody"
+      responses:
+        "200":
+          description: Updated case
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LegalCase"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteCase
+      tags: [cases]
+      summary: Delete a legal case
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /cases/{id}/analyze:
+    post:
+      operationId: analyzeCase
+      tags: [analysis]
+      summary: Run AI analysis on a case with a selected skill
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeCaseBody"
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+
+  /cases/{id}/workflow:
+    post:
+      operationId: runWorkflow
+      tags: [workflows]
+      summary: Execute a predefined legal workflow on a case
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RunWorkflowBody"
+      responses:
+        "200":
+          description: Workflow result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+
+  /results:
+    get:
+      operationId: listResults
+      tags: [results]
+      summary: List all analysis results
+      parameters:
+        - in: query
+          name: caseId
+          schema:
+            type: integer
+          required: false
+      responses:
+        "200":
+          description: List of results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AnalysisResult"
+
+  /results/{id}:
+    get:
+      operationId: getResult
+      tags: [results]
+      summary: Get an analysis result by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteResult
+      tags: [results]
+      summary: Delete an analysis result
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [cases]
+      summary: Get dashboard statistics
+      responses:
+        "200":
+          description: Dashboard stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /skills:
+    get:
+      operationId: listSkills
+      tags: [analysis]
+      summary: List all available legal skills
+      responses:
+        "200":
+          description: List of legal skills
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LegalSkill"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +287,231 @@ components:
       required:
         - status
 
+    LegalCase:
+      type: object
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        fatos:
+          type: string
+        partes:
+          type: string
+        problema:
+          type: string
+        objetivo:
+          type: string
+        documentos:
+          type: ["string", "null"]
+        status:
+          type: string
+        tipo:
+          type: ["string", "null"]
+        numero_processo:
+          type: ["string", "null"]
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - id
+        - titulo
+        - fatos
+        - partes
+        - problema
+        - objetivo
+        - status
+        - created_at
+        - updated_at
+
+    CreateLegalCaseBody:
+      type: object
+      properties:
+        titulo:
+          type: string
+        fatos:
+          type: string
+        partes:
+          type: string
+        problema:
+          type: string
+        objetivo:
+          type: string
+        documentos:
+          type: ["string", "null"]
+        tipo:
+          type: ["string", "null"]
+        numero_processo:
+          type: ["string", "null"]
+      required:
+        - titulo
+        - fatos
+        - partes
+        - problema
+        - objetivo
+
+    UpdateLegalCaseBody:
+      type: object
+      properties:
+        titulo:
+          type: string
+        fatos:
+          type: string
+        partes:
+          type: string
+        problema:
+          type: string
+        objetivo:
+          type: string
+        documentos:
+          type: ["string", "null"]
+        status:
+          type: string
+        tipo:
+          type: ["string", "null"]
+        numero_processo:
+          type: ["string", "null"]
+
+    AnalyzeCaseBody:
+      type: object
+      properties:
+        skill_id:
+          type: string
+        skill_name:
+          type: string
+        additional_context:
+          type: ["string", "null"]
+      required:
+        - skill_id
+        - skill_name
+
+    RunWorkflowBody:
+      type: object
+      properties:
+        workflow_type:
+          type: string
+          description: "sentenca_civel | saneamento | despacho | conciliacao"
+        additional_context:
+          type: ["string", "null"]
+      required:
+        - workflow_type
+
+    AnalysisResult:
+      type: object
+      properties:
+        id:
+          type: integer
+        case_id:
+          type: integer
+        skill_id:
+          type: ["string", "null"]
+        skill_name:
+          type: ["string", "null"]
+        workflow_type:
+          type: ["string", "null"]
+        analise:
+          type: string
+        fundamentacao_juridica:
+          type: string
+        jurisprudencia_nivel1:
+          type: string
+        jurisprudencia_nivel2:
+          type: string
+        jurisprudencia_nivel3:
+          type: string
+        decisao_recomendacao:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+      required:
+        - id
+        - case_id
+        - analise
+        - fundamentacao_juridica
+        - jurisprudencia_nivel1
+        - jurisprudencia_nivel2
+        - jurisprudencia_nivel3
+        - decisao_recomendacao
+        - status
+        - created_at
+
+    DashboardStats:
+      type: object
+      properties:
+        total_cases:
+          type: integer
+        active_cases:
+          type: integer
+        completed_analyses:
+          type: integer
+        pending_cases:
+          type: integer
+        cases_by_type:
+          type: array
+          items:
+            $ref: "#/components/schemas/CaseTypeCount"
+        recent_activity:
+          type: array
+          items:
+            $ref: "#/components/schemas/RecentActivity"
+        workflows_executed:
+          type: integer
+      required:
+        - total_cases
+        - active_cases
+        - completed_analyses
+        - pending_cases
+        - cases_by_type
+        - recent_activity
+        - workflows_executed
+
+    CaseTypeCount:
+      type: object
+      properties:
+        tipo:
+          type: string
+        count:
+          type: integer
+      required:
+        - tipo
+        - count
+
+    RecentActivity:
+      type: object
+      properties:
+        id:
+          type: integer
+        description:
+          type: string
+        timestamp:
+          type: string
+        type:
+          type: string
+      required:
+        - id
+        - description
+        - timestamp
+        - type
+
+    LegalSkill:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        icon:
+          type: string
+      required:
+        - id
+        - name
+        - description
+        - category
+        - icon
