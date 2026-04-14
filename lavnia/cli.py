@@ -24,7 +24,15 @@ def main():
     elif comando == "peticao":
         texto = input("Descreva o caso: ")
         print(gerar_peticao(texto))
+def gerar_peticao(texto):
+    return f"""
+EXCELENTÍSSIMO SENHOR JUIZ
 
+{texto}
+
+Termos em que,
+Pede deferimento.
+"""
     else:
         print("Comando inválido")
 
