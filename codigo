@@ -1,12 +1,5 @@
-# Lav-nIA
-
-Sistema jurídico com automação e IA.
-
-## Instalação
-
-curl ... | bash
-
-## Uso
-
-lavnia chat
-lavnia peticao
+Lav-nIA/
+ ├── install.sh
+ ├── app.py
+ ├── arquivos soltos (.json, testes, etc)
+ ├── pastas de estudo (criptografia, etc)
