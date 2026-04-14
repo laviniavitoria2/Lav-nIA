@@ -1,0 +1,87 @@
+def gerar_sentenca(processo, analise, alertas, riscos):
+    numero = processo.get("numero", "N/A")
+    autor = processo.get("partes", {}).get("autor", "Autor")
+    reu = processo.get("partes", {}).get("reu", "Réu")
+    pedido = processo.get("pedido", "pedido não especificado")
+
+    # =========================
+    # RELATÓRIO
+    # =========================
+    relatorio = f"""
+    Trata-se de ação de {pedido}, proposta por {autor} em face de {reu}.
+
+    A parte autora alega, em síntese, os fatos descritos na inicial,
+    requerendo a procedência do pedido.
+
+    É o relatório. Decido.
+    """
+
+    # =========================
+    # FUNDAMENTAÇÃO BASE
+    # =========================
+    fundamentacao = """
+    A análise do caso deve observar os princípios do contraditório e da ampla defesa,
+    nos termos do art. 5º, inciso LV, da Constituição Federal.
+
+    Nos termos do Código de Processo Civil, o julgador deve enfrentar todos os argumentos
+    capazes de infirmar a conclusão adotada (art. 489, §1º, CPC).
+    """
+
+    # =========================
+    # ALERTAS DE NULIDADE
+    # =========================
+    if alertas:
+        fundamentacao += "\n\n### VERIFICAÇÃO DE NULIDADES PROCESSUAIS\n"
+        for alerta in alertas:
+            fundamentacao += f"- {alerta}\n"
+
+    if riscos:
+        fundamentacao += "\n\n### PONTOS DE ATENÇÃO\n"
+        for risco in riscos:
+            fundamentacao += f"- {risco}\n"
+
+    # =========================
+    # ANÁLISE DO CASO
+    # =========================
+    fundamentacao += f"""
+
+    No mérito, verifica-se que a controvérsia gira em torno de {pedido}.
+
+    Considerando os elementos constantes nos autos, bem como a natureza da demanda,
+    entendo que o pedido formulado deve ser analisado à luz dos princípios da razoabilidade
+    e proporcionalidade.
+
+    No caso concreto, não há elementos que impeçam o julgamento do mérito.
+    """
+
+    # =========================
+    # DISPOSITIVO
+    # =========================
+    dispositivo = f"""
+    Diante do exposto, JULGO PROCEDENTE o pedido formulado por {autor},
+    em face de {reu}, com resolução de mérito, nos termos do art. 487, inciso I, do CPC.
+
+    Condeno a parte ré ao cumprimento da obrigação nos termos fixados nesta decisão.
+
+    Publique-se. Registre-se. Intimem-se.
+    """
+
+    # =========================
+    # SENTENÇA FINAL
+    # =========================
+    sentenca = f"""
+    SENTENÇA
+
+    Processo nº: {numero}
+
+    I — RELATÓRIO
+    {relatorio}
+
+    II — FUNDAMENTAÇÃO
+    {fundamentacao}
+
+    III — DISPOSITIVO
+    {dispositivo}
+    """
+
+    return sentenca

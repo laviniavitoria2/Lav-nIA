@@ -1,4 +1,4 @@
-modules = ["nodejs-24", "postgresql-16"]
+modules = ["nodejs-24", "postgresql-16", "python-3.11"]
 
 [deployment]
 router = "application"
@@ -10,6 +10,27 @@ env = { "CI" = "true" }
 
 [workflows]
 runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "LavinIA Juris"
+
+[[workflows.workflow]]
+name = "LavinIA Juris"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd lavinia-juris && streamlit run app.py --server.port 5000 --server.headless true"
+waitForPort = 5000
 
 [agent]
 stack = "PNPM_WORKSPACE"
@@ -23,6 +44,10 @@ timeoutMs = 20000
 channel = "stable-25_05"
 
 [[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
 localPort = 8080
 externalPort = 8080
 
@@ -31,5 +56,13 @@ localPort = 8081
 externalPort = 8081
 
 [[ports]]
+localPort = 8082
+externalPort = 3001
+
+[[ports]]
 localPort = 22635
 externalPort = 80
+
+[[ports]]
+localPort = 22636
+externalPort = 3000
