@@ -1,0 +1,34 @@
+# ⚖️ Lav-nIA
+
+Sistema jurídico inteligente de automação, fundamentação e geração de peças jurídicas via IA.
+
+---
+
+## 🧠 Visão Geral
+
+O Lav-nIA é um sistema modular de automação jurídica que utiliza inteligência artificial para:
+
+- Classificar casos jurídicos
+- Buscar fundamentação legal
+- Consultar jurisprudência (STF/STJ)
+- Aplicar súmulas
+- Gerar peças jurídicas automaticamente
+- Estruturar workflows de gabinete jurídico
+
+---
+
+## 🚀 Funcionalidades
+
+- 💬 Assistente jurídico via terminal (CLI)
+- ⚖️ Análise automática de processos
+- 📄 Geração de petições, recursos e contestações
+- 📚 Base jurídica estruturada (leis, súmulas, jurisprudência)
+- 🧠 Motor de fundamentação automática
+- 🔄 Workflows jurídicos inteligentes
+
+---
+
+## ⚙️ Instalação
+
+```bash
+curl -fsSL https://seu-instalador.sh | bash
