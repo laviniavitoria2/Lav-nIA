@@ -27,4 +27,4 @@ def main():
         print("Comando não reconhecido")
 
 if __name__ == "__main__":
-    main()
+    main() 
