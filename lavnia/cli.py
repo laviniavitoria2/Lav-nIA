@@ -10,7 +10,16 @@ def main():
     comando = sys.argv[1]
 
     if comando == "chat":
-        chat()
+        chatdef chat():
+    print("Lav-nIA iniciada")
+
+    while True:
+        msg = input("Você: ")
+
+        if msg == "sair":
+            break
+
+        print("IA:", msg)()
 
     elif comando == "peticao":
         texto = input("Descreva o caso: ")
