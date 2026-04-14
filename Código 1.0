@@ -1,0 +1,50 @@
+lav-nia/
+├── core/
+│   ├── engine.py
+│   ├── fundamentacao_engine.py
+│   ├── classifier.py
+│   ├── generator.py
+│   └── reviewer.py
+│
+├── cli/
+│   └── main.py
+│
+├── workflows/
+│   ├── peticao_inicial.yml
+│   ├── contestacao.yml
+│   ├── recurso.yml
+│   └── analise_caso.yml
+│
+├── legislacao/
+│   ├── constituicao_federal.md
+│   ├── codigo_civil.md
+│   ├── codigo_processo_civil.md
+│   ├── codigo_penal.md
+│   └── codigo_processo_penal.md
+│
+├── jurisprudencia/
+│   ├── stf/
+│   ├── stj/
+│   ├── sumulas/
+│   │   ├── stf.md
+│   │   ├── stj.md
+│   │   └── tjs.md
+│   ├── temas_repetitivos/
+│   └── repercussao_geral/
+│
+├── pecas/
+│   ├── iniciais/
+│   ├── contestacoes/
+│   ├── recursos/
+│   ├── replicas/
+│   └── execucoes/
+│
+├── templates/
+│   ├── peticao_inicial.md
+│   ├── contestacao.md
+│   ├── apelação.md
+│   └── recurso_especial.md
+│
+├── memory/
+├── logs/
+└── README.md
