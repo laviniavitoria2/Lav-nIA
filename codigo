@@ -1,5 +1,10 @@
-Lav-nIA/
- ├── install.sh
- ├── app.py
- ├── arquivos soltos (.json, testes, etc)
- ├── pastas de estudo (criptografia, etc)
+lav-nia/
+├── core/              # lógica principal (IA jurídica)
+├── cli/               # interface terminal
+├── workflows/         # automações (ESSENCIAL)
+├── prompts/           # prompts jurídicos versionados
+├── models/            # dados jurídicos / templates
+├── memory/            # histórico de casos (futuro forte)
+├── api/               # (futuro integração web)
+├── tests/
+└── main.py
