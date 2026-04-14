@@ -19,7 +19,7 @@ pip install -r $INSTALL_DIR/requirements.txt
 echo "⚙️ Criando comando global..."
 
 echo '#!/usr/bin/env bash' > /usr/local/bin/lavnia
-echo "python3 $INSTALL_DIR/app.py" >> /usr/local/bin/lavnia
+echo "python3 $INSTALL_DIR/lavnia/cli.py" >> /usr/local/bin/lavnia
 
 chmod +x /usr/local/bin/lavnia
 
