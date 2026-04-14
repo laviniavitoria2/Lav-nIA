@@ -1,0 +1,19 @@
+Laví-nIA/
+│
+├── LavínIA/
+│   ├── __init__.py
+│   ├── cli.py              ← CÉREBRO
+│   │
+│   ├── modules/
+│   │   ├── __init__.py
+│   │   ├── chat.py
+│   │   ├── peticao.py
+│   │
+│   ├── core/
+│   │   ├── config.py
+│   │   ├── ai.py
+│
+├── app.py (opcional)
+├── requirements.txt
+├── install.sh
+├── README.md
