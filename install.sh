@@ -64,9 +64,7 @@ echo "⚙️ Criando comando global..."
 
 sudo tee $BIN_PATH > /dev/null <<EOF
 #!/usr/bin/env bash
-python3 $INSTALL_DIR/lavnia/app.py "$@"
-EOF
-
+python3 $INSTALL_DIR/cli.py
 sudo chmod +x $BIN_PATH
 
 # 🎉 Final
