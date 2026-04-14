@@ -1,4 +1,4 @@
-      chat():
+chat():
     print("🤖 Lav-nIA iniciada (digite 'sair' para encerrar)\n")
 
      True:
